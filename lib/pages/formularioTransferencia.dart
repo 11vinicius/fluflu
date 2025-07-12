@@ -1,0 +1,53 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/formatters/currency_input_formatter.dart';
+import 'package:flutter_multi_formatter/formatters/money_input_enums.dart';
+import 'package:get/get.dart';
+import 'package:teste/components/CustomAppBar.dart';
+import 'package:teste/components/CustomTextInput.dart';
+import 'package:teste/controllerz/transferenciaController.dart';
+
+class FormulariotransferenciaPage extends StatelessWidget {
+  FormulariotransferenciaPage({super.key});
+
+  final TransfereciaController controller = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CustomAppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            CustomTextInput(
+              controller: controller.numeroConta,
+              hint: '0000',
+              label: 'Número da conta',
+              keyboardType: TextInputType.number,
+            ),
+            CustomTextInput(
+              controller: controller.valorConta,
+              keyboardType: TextInputType.number,
+              label: 'Valor',
+              hint: '0.00',
+              prefixIcon: Icons.monetization_on,
+              inputFormatters: [
+                CurrencyInputFormatter(
+                  leadingSymbol: 'R\$',
+                  useSymbolPadding: true,
+                  thousandSeparator: ThousandSeparator.Period,
+                  mantissaLength: 2,
+                  trailingSymbol: '',
+                ),
+              ],
+            ),
+            ElevatedButton(
+              onPressed: () => controller.criar(),
+              child: Text("Clique aqui"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
