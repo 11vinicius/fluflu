@@ -15,37 +15,52 @@ class FormulariotransferenciaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            CustomTextInput(
-              controller: controller.numeroConta,
-              hint: '0000',
-              label: 'Número da conta',
-              keyboardType: TextInputType.number,
-            ),
-            CustomTextInput(
-              controller: controller.valorConta,
-              keyboardType: TextInputType.number,
-              label: 'Valor',
-              hint: '0.00',
-              prefixIcon: Icons.monetization_on,
-              inputFormatters: [
-                CurrencyInputFormatter(
-                  leadingSymbol: 'R\$',
-                  useSymbolPadding: true,
-                  thousandSeparator: ThousandSeparator.Period,
-                  mantissaLength: 2,
-                  trailingSymbol: '',
-                ),
-              ],
-            ),
-            ElevatedButton(
-              onPressed: () => controller.criar(),
-              child: Text("Clique aqui"),
-            ),
-          ],
+      body: Form(
+        key: controller.formKey,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              CustomTextInput(
+                controller: controller.numeroConta,
+                hint: '0000',
+                label: 'Número da conta',
+                keyboardType: TextInputType.number,
+                validator: (valor) {
+                  if (valor == null || valor.isEmpty) {
+                    return 'Campo obrigatório';
+                  }
+                  return null;
+                },
+              ),
+              CustomTextInput(
+                controller: controller.valorConta,
+                keyboardType: TextInputType.number,
+                label: 'Valor',
+                hint: '0.00',
+                validator: (valor) {
+                  if (valor == null || valor.isEmpty) {
+                    return 'Campo obrigatório';
+                  }
+                  return null;
+                },
+                prefixIcon: Icons.monetization_on,
+                inputFormatters: [
+                  CurrencyInputFormatter(
+                    leadingSymbol: 'R\$',
+                    useSymbolPadding: true,
+                    thousandSeparator: ThousandSeparator.Period,
+                    mantissaLength: 2,
+                    trailingSymbol: '',
+                  ),
+                ],
+              ),
+              ElevatedButton(
+                onPressed: () => controller.criar(),
+                child: Text("Clique aqui"),
+              ),
+            ],
+          ),
         ),
       ),
     );

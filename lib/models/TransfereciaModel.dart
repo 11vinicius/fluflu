@@ -1,5 +1,5 @@
 class TransfereciaModel {
-  final String id;
+  final String? id;
   final double valor;
   final int numeroConta;
 

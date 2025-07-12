@@ -19,7 +19,7 @@ class Transferencia extends StatelessWidget {
         subtitle: Text('R\$${transferencia.valor.toString()}'),
         trailing: IconButton(
           icon: Icon(Icons.delete, color: Colors.red),
-          onPressed: () => controller.delete(transferencia.id),
+          onPressed: () {},
         ),
       ),
     );

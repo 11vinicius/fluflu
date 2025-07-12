@@ -10,12 +10,14 @@ class CustomTextInput extends StatelessWidget {
   final String? errorMessage;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
+  final String? Function(String?)? validator;
 
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextInput({
     super.key,
+    this.validator,
     required this.controller,
     required this.label,
     required this.hint,
@@ -46,11 +48,12 @@ class CustomTextInput extends StatelessWidget {
 
         return Padding(
           padding: padding,
-          child: TextField(
+          child: TextFormField(
             controller: controller,
             keyboardType: keyboardType,
             inputFormatters: inputFormatters,
             style: TextStyle(fontSize: fontSize),
+            validator: validator,
             decoration: InputDecoration(
               labelText: label,
               hintText: hint,
