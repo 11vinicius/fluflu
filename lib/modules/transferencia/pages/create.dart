@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/currency_input_formatter.dart';
 import 'package:flutter_multi_formatter/formatters/money_input_enums.dart';
 import 'package:get/get.dart';
+import 'package:teste/layout/ColorsTheme.dart';
 import 'package:teste/shared/components/CustomAppBar.dart';
+import 'package:teste/shared/components/CustomButton.dart';
 import 'package:teste/shared/components/CustomLoading.dart';
 import 'package:teste/shared/components/CustomTextInput.dart';
 import 'package:teste/modules/transferencia/controllers/TransferenciaController.dart';
@@ -58,9 +60,12 @@ class CreatePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  ElevatedButton(
-                    onPressed: () => controller.criar(),
-                    child: Text("Clique aqui"),
+                  CustomButton(
+                    backgroundColor: ColorsTheme.blue,
+                    onPressed: () {
+                      print('ok');
+                    },
+                    label: 'Criar',
                   ),
                 ],
               ),

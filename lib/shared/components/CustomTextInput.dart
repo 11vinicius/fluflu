@@ -42,7 +42,7 @@ class CustomTextInput extends StatelessWidget {
             : 24;
 
         final EdgeInsets padding = EdgeInsets.symmetric(
-          vertical: width < 350 ? 8 : 12,
+          vertical: width < 350 ? 8 : 10,
           horizontal: 12,
         );
 
