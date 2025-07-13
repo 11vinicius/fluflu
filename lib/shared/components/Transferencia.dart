@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:teste/controllerz/transferenciaController.dart';
 import 'package:teste/models/TransfereciaModel.dart';
 
 class Transferencia extends StatelessWidget {
   final TransfereciaModel transferencia;
 
   Transferencia({required this.transferencia});
-
-  final controller = Get.put(TransfereciaController());
 
   @override
   Widget build(BuildContext context) {

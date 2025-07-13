@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:teste/bindings/TransferenciaBinding.dart';
-import 'package:teste/pages/formularioTransferencia.dart';
-import 'package:teste/pages/home.dart';
+import 'package:teste/modules/transferencia/bindings/CreateBinding.dart';
+import 'package:teste/modules/transferencia/bindings/ListBinding.dart';
+import 'package:teste/modules/transferencia/pages/create.dart';
+import 'package:teste/modules/transferencia/pages/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,9 +22,17 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/',
           page: () => HomePage(),
-          binding: TransferenciaBinding(),
+          binding: ListBinding(),
+          transition: Transition.fadeIn,
+          transitionDuration: Duration(milliseconds: 400),
         ),
-        GetPage(name: '/create', page: () => FormulariotransferenciaPage()),
+        GetPage(
+          name: '/create',
+          page: () => CreatePage(),
+          binding: CreateBinding(),
+          transition: Transition.fadeIn,
+          transitionDuration: Duration(milliseconds: 400),
+        ),
       ],
     );
   }

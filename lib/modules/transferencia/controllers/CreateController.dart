@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teste/models/TransfereciaModel.dart';
-import 'package:teste/services/TransferenciaService.dart';
-import 'package:teste/utils/formatMoneyToDouble.dart';
+import 'package:teste/modules/transferencia/services/TransferenciaService.dart';
+import 'package:teste/shared/utils/formatMoneyToDouble.dart';
 import 'package:uuid/uuid.dart';
 
-class TransfereciaController extends GetxController {
+class CreateController extends GetxController {
   final formKey = GlobalKey<FormState>();
+  RxBool isLoading = false.obs;
   final numeroConta = TextEditingController();
   final valorConta = TextEditingController();
   final uuid = Uuid();
@@ -18,8 +19,10 @@ class TransfereciaController extends GetxController {
   Future<void> criar() async {
     if (!formKey.currentState!.validate()) {
       print('erro');
+      return;
     }
 
+    isLoading.value = true;
     final numero = int.tryParse(numeroConta.text);
     final valor = parseMoneyBr(valorConta.text);
     final uuid = Uuid();
@@ -29,7 +32,9 @@ class TransfereciaController extends GetxController {
       TransfereciaModel(id, valor, numero!),
     );
 
-    print(res.body);
-    return;
+    numeroConta.text = '';
+    valorConta.text = '';
+    isLoading.value = false;
+    Get.offAllNamed("/");
   }
 }

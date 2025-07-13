@@ -1,6 +1,6 @@
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:teste/models/TransfereciaModel.dart';
-import 'package:teste/services/baseService.dart';
+import 'package:teste/shared/baseService.dart';
 
 class TransferenciaService {
   final baseService = BaseService();
