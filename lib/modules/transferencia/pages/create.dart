@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import 'package:teste/shared/components/CustomAppBar.dart';
 import 'package:teste/shared/components/CustomLoading.dart';
 import 'package:teste/shared/components/CustomTextInput.dart';
-import 'package:teste/modules/transferencia/controllers/CreateController.dart';
+import 'package:teste/modules/transferencia/controllers/TransferenciaController.dart';
 
 class CreatePage extends StatelessWidget {
   CreatePage({super.key});
 
-  final CreateController controller = Get.find();
+  final TransferenciaController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

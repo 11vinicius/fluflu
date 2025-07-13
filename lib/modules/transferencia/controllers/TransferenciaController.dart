@@ -5,16 +5,20 @@ import 'package:teste/modules/transferencia/services/TransferenciaService.dart';
 import 'package:teste/shared/utils/formatMoneyToDouble.dart';
 import 'package:uuid/uuid.dart';
 
-class CreateController extends GetxController {
+class TransferenciaController extends GetxController {
   final formKey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
   final numeroConta = TextEditingController();
   final valorConta = TextEditingController();
   final uuid = Uuid();
-
   final service = TransferenciaService();
+  RxList<TransfereciaModel> transferencias = <TransfereciaModel>[].obs;
 
-  final List<TransfereciaModel> transferencias = [];
+  @override
+  void onInit() {
+    findAll();
+    super.onInit();
+  }
 
   Future<void> criar() async {
     if (!formKey.currentState!.validate()) {
@@ -34,7 +38,17 @@ class CreateController extends GetxController {
 
     numeroConta.text = '';
     valorConta.text = '';
-    isLoading.value = false;
     Get.offAllNamed("/");
+  }
+
+  Future<void> findAll() async {
+    final res = await service.getTransferencias();
+
+    final lista = (res.body['results'] as List<dynamic>)
+        .map((e) => TransfereciaModel.fromMap(e as Map<String, dynamic>))
+        .toList();
+
+    transferencias.value = lista;
+    isLoading.value = false;
   }
 }

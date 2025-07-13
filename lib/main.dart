@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:teste/modules/transferencia/bindings/CreateBinding.dart';
-import 'package:teste/modules/transferencia/bindings/ListBinding.dart';
+import 'package:teste/modules/transferencia/bindings/TransferenciaBinding.dart';
 import 'package:teste/modules/transferencia/pages/create.dart';
 import 'package:teste/modules/transferencia/pages/home.dart';
 
@@ -22,14 +21,14 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/',
           page: () => HomePage(),
-          binding: ListBinding(),
+          binding: TransferenciaBinding(),
           transition: Transition.fadeIn,
           transitionDuration: Duration(milliseconds: 400),
         ),
         GetPage(
           name: '/create',
           page: () => CreatePage(),
-          binding: CreateBinding(),
+          binding: TransferenciaBinding(),
           transition: Transition.fadeIn,
           transitionDuration: Duration(milliseconds: 400),
         ),
