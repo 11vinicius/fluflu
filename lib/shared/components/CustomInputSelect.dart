@@ -58,55 +58,89 @@ class CustomInputSelect extends StatelessWidget {
 
         return Padding(
           padding: padding,
-          child: TextFormField(
-            decoration: InputDecoration(
-              labelText: label,
-              labelStyle: TextStyle(
-                color: hasError ? ColorsTheme.red : ColorsTheme.blue,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-              hintText: hint,
-              errorText: hasError ? errorMessage : null,
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(left: 8, right: 4),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: hasError ? ColorsTheme.red : ColorsTheme.blue,
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(4),
+                    bottomLeft: Radius.circular(4),
+                  ),
+                ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: value,
-                    style: const TextStyle(
-                      color: ColorsTheme.blue,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
+                    onChanged: (newValue) {
+                      if (newValue != null) onChanged?.call(newValue);
+                    },
                     items: options
                         .map(
                           (opt) => DropdownMenuItem(
                             value: opt.value,
-                            child: Text(opt.label),
+                            child: Text(
+                              opt.label,
+                              style: TextStyle(
+                                color: ColorsTheme.blue,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
                         )
                         .toList(),
-                    onChanged: (newValue) {
-                      if (newValue != null) {
-                        onChanged?.call(newValue);
-                      }
-                    },
+                    icon: const Icon(Icons.keyboard_arrow_down),
                   ),
                 ),
               ),
-              border: const OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: hasError ? ColorsTheme.red : ColorsTheme.blue,
-                  width: 2.0,
+              Expanded(
+                child: TextFormField(
+                  controller: controller,
+                  keyboardType: keyboardType,
+                  inputFormatters: inputFormatters,
+                  style: TextStyle(fontSize: fontSize),
+                  validator: validator,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                    labelText: label,
+                    hintText: hint,
+                    labelStyle: TextStyle(
+                      color: hasError ? ColorsTheme.red : ColorsTheme.blue,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    errorText: hasError ? errorMessage : null,
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(4),
+                        bottomRight: Radius.circular(4),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: hasError ? ColorsTheme.red : ColorsTheme.blue,
+                      ),
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(4),
+                        bottomRight: Radius.circular(4),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: hasError ? ColorsTheme.red : ColorsTheme.blue,
+                        width: 2.0,
+                      ),
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(4),
+                        bottomRight: Radius.circular(4),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: hasError ? ColorsTheme.red : ColorsTheme.blue,
-                ),
-              ),
-            ),
+            ],
           ),
         );
       },

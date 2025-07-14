@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teste/shared/layout/ColorsTheme.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -12,11 +13,13 @@ class CustomButton extends StatelessWidget {
   final double? borderRadius;
   final double? elevation;
   final Duration? animationDuration;
+  final bool isLoading;
 
   const CustomButton({
     super.key,
     required this.onPressed,
     required this.label,
+    required this.isLoading,
     this.icon,
     this.backgroundColor,
     this.foregroundColor,
@@ -40,7 +43,7 @@ class CustomButton extends StatelessWidget {
         fontSize: fontSize ?? 16,
         fontWeight: FontWeight.w600,
       ),
-      elevation: elevation ?? 3,
+      elevation: elevation ?? 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius ?? 12),
       ),
@@ -51,27 +54,29 @@ class CustomButton extends StatelessWidget {
         ? ElevatedButton.icon(
             onPressed: onPressed,
             icon: Icon(icon),
-            label: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18),
-            ),
+            label: isLoading
+                ? Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18),
+                  )
+                : CircularProgressIndicator(color: ColorsTheme.white),
             style: btnStyle,
           )
         : ElevatedButton(
             onPressed: onPressed,
             style: btnStyle,
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18),
-            ),
+            child: isLoading
+                ? Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18),
+                  )
+                : CircularProgressIndicator(color: ColorsTheme.white),
           );
 
-    // 👉 mesmo padding externo do input
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      // 👉 agora ocupa toda a largura “de dentro” do Padding
       child: SizedBox(width: double.infinity, child: button),
     );
   }

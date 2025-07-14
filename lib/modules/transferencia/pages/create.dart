@@ -19,112 +19,111 @@ class CreatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (!controller.isLoading.value) {
-        return Scaffold(
-          appBar: CustomAppBar(),
-          body: Form(
-            key: controller.formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  CustomTextInput(
-                    controller: controller.numeroConta,
-                    hint: '0000',
-                    label: 'Número da conta',
-                    suffixIcon: Icons.help,
-                    keyboardType: TextInputType.number,
-                    onSuffixTap: () => CustomToast(
-                      title: 'CPF',
-                      message: 'Digite seu CPF',
-                      bgColor: ColorsTheme.green,
+      return Scaffold(
+        appBar: CustomAppBar(),
+        body: Form(
+          key: controller.formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                CustomTextInput(
+                  controller: controller.numeroConta,
+                  enable: !controller.isLoading.value,
+                  hint: '0000',
+                  label: 'Número da conta',
+                  suffixIcon: Icons.help,
+                  keyboardType: TextInputType.number,
+                  onSuffixTap: () => CustomToast(
+                    title: 'CPF',
+                    message: 'Digite seu CPF',
+                    bgColor: ColorsTheme.green,
+                  ),
+                  validator: (valor) {
+                    if (valor == null || valor.isEmpty) {
+                      return 'Campo obrigatório';
+                    }
+                    return null;
+                  },
+                ),
+                // CustomTextInput(
+                //   controller: controller.numeroConta,
+                //   hint: '0000 0000 0000 0000',
+                //   label: 'Cartão',
+                //   suffixIcon: Icons.help,
+                //   keyboardType: TextInputType.number,
+                //   prefixIcon: Icons.credit_card,
+                //   onSuffixTap: () => CustomToast(
+                //     title: 'Numero do cartao',
+                //     message: 'Digite seu CPF',
+                //     bgColor: ColorsTheme.green,
+                //   ),
+                //   validator: (valor) {
+                //     if (valor == null || valor.isEmpty) {
+                //       return 'Campo obrigatório';
+                //     }
+                //     return null;
+                //   },
+                // ),
+                CustomTextInput(
+                  controller: controller.valorConta,
+                  keyboardType: TextInputType.number,
+                  enable: !controller.isLoading.value,
+                  label: 'Valor',
+                  hint: '0.00',
+                  validator: (valor) {
+                    if (valor == null || valor.isEmpty) {
+                      return 'Campo obrigatório';
+                    }
+                    return null;
+                  },
+                  prefixIcon: Icons.monetization_on,
+                  inputFormatters: [
+                    CurrencyInputFormatter(
+                      leadingSymbol: 'R\$',
+                      useSymbolPadding: true,
+                      thousandSeparator: ThousandSeparator.Period,
+                      mantissaLength: 2,
+                      trailingSymbol: '',
                     ),
-                    validator: (valor) {
-                      if (valor == null || valor.isEmpty) {
-                        return 'Campo obrigatório';
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextInput(
-                    controller: controller.numeroConta,
-                    hint: '0000 0000 0000 0000',
-                    label: 'Cartão',
-                    suffixIcon: Icons.help,
-                    keyboardType: TextInputType.number,
-                    prefixIcon: Icons.credit_card,
-                    onSuffixTap: () => CustomToast(
-                      title: 'Numero do cartao',
-                      message: 'Digite seu CPF',
-                      bgColor: ColorsTheme.green,
-                    ),
-                    validator: (valor) {
-                      if (valor == null || valor.isEmpty) {
-                        return 'Campo obrigatório';
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextInput(
-                    controller: controller.valorConta,
-                    keyboardType: TextInputType.number,
-                    label: 'Valor',
-                    hint: '0.00',
-                    validator: (valor) {
-                      if (valor == null || valor.isEmpty) {
-                        return 'Campo obrigatório';
-                      }
-                      return null;
-                    },
-                    prefixIcon: Icons.monetization_on,
-                    inputFormatters: [
-                      CurrencyInputFormatter(
-                        leadingSymbol: 'R\$',
-                        useSymbolPadding: true,
-                        thousandSeparator: ThousandSeparator.Period,
-                        mantissaLength: 2,
-                        trailingSymbol: '',
-                      ),
-                    ],
-                  ),
-                  CustomTextInput(
-                    controller: controller.valorConta,
-                    keyboardType: TextInputType.number,
-                    label: 'Pesquisar',
-                    hint: '0.00',
-                    prefixIcon: Icons.search,
-                  ),
-                  Obx(() {
-                    final selectedOption = controller.moedas.firstWhere(
-                      (m) => m.value == controller.moeda.value,
-                      orElse: () => controller.moedas[0],
-                    );
-                    return CustomInputSelect(
-                      controller: controller.valorConta,
-                      keyboardType: TextInputType.number,
-                      label: 'Moeda',
-                      hint: '',
-                      onChanged: (value) {
-                        controller.moeda.value = value;
-                      },
-                      prefixIcon: Icons.search,
-                      options: controller.moedas,
-                      value: controller.moeda.value,
-                    );
-                  }),
-                  CustomButton(
-                    backgroundColor: ColorsTheme.blue,
-                    onPressed: () => controller.make(),
-                    label: 'Criar',
-                  ),
-                ],
-              ),
+                  ],
+                ),
+                // CustomTextInput(
+                //   controller: controller.valorConta,
+                //   keyboardType: TextInputType.number,
+                //   label: 'Pesquisar',
+                //   hint: '0.00',
+                //   prefixIcon: Icons.search,
+                // ),
+                // Obx(() {
+                //   final selectedOption = controller.moedas.firstWhere(
+                //     (m) => m.value == controller.moeda.value,
+                //     orElse: () => controller.moedas[0],
+                //   );
+                //   return CustomInputSelect(
+                //     controller: controller.valorConta,
+                //     keyboardType: TextInputType.number,
+                //     label: 'Moeda',
+                //     hint: 'moedas',
+                //     onChanged: (value) {
+                //       controller.moeda.value = value;
+                //     },
+                //     prefixIcon: Icons.search,
+                //     options: controller.moedas,
+                //     value: controller.moeda.value,
+                //   );
+                // }),
+                CustomButton(
+                  backgroundColor: ColorsTheme.blue,
+                  onPressed: () => controller.make(),
+                  isLoading: !controller.isLoading.value,
+                  label: 'Criar',
+                ),
+              ],
             ),
           ),
-        );
-      } else {
-        return CustomLoading();
-      }
+        ),
+      );
     });
   }
 }

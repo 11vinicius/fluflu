@@ -48,8 +48,6 @@ class TransferenciaController extends GetxController {
 
     await service.createTransferencias(TransfereciaModel(id, valor, numero!));
 
-    numeroConta.text = '';
-    valorConta.text = '';
     Get.offAllNamed("/");
   }
 

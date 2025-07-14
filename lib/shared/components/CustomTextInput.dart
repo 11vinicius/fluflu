@@ -12,13 +12,14 @@ class CustomTextInput extends StatelessWidget {
   final IconData? suffixIcon;
   final String? Function(String?)? validator;
   final VoidCallback? onSuffixTap;
-
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final bool enable;
 
   const CustomTextInput({
     super.key,
     this.validator,
+    required this.enable,
     this.onSuffixTap,
     required this.controller,
     required this.label,
@@ -51,6 +52,7 @@ class CustomTextInput extends StatelessWidget {
         return Padding(
           padding: padding,
           child: TextFormField(
+            enabled: enable,
             controller: controller,
             keyboardType: keyboardType,
             inputFormatters: inputFormatters,
