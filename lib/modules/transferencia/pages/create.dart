@@ -102,7 +102,7 @@ class CreatePage extends StatelessWidget {
                     return CustomInputSelect(
                       controller: controller.valorConta,
                       keyboardType: TextInputType.number,
-                      label: '',
+                      label: 'Moeda',
                       hint: '',
                       onChanged: (value) {
                         controller.moeda.value = value;
