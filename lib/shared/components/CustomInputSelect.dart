@@ -2,34 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:teste/shared/layout/ColorsTheme.dart';
 
-class CustomTextInput extends StatelessWidget {
+class CustomInputSelect extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final String hint;
   final bool hasError;
   final String? errorMessage;
   final IconData? prefixIcon;
-  final IconData? suffixIcon;
   final String? Function(String?)? validator;
-  final VoidCallback? onSuffixTap;
-
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final List<String> options;
+  final String value;
 
-  const CustomTextInput({
+  CustomInputSelect({
     super.key,
     this.validator,
-    this.onSuffixTap,
+    required this.value,
+    required this.options,
     required this.controller,
     required this.label,
     required this.hint,
     this.prefixIcon,
-    this.suffixIcon,
     this.keyboardType = TextInputType.text,
     this.inputFormatters,
     this.hasError = false,
     this.errorMessage,
   });
+
+  late String _selected; // estado interno do dropdown
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +52,6 @@ class CustomTextInput extends StatelessWidget {
         return Padding(
           padding: padding,
           child: TextFormField(
-            controller: controller,
-            keyboardType: keyboardType,
-            inputFormatters: inputFormatters,
-            style: TextStyle(fontSize: fontSize),
-            validator: validator,
             decoration: InputDecoration(
               labelText: label,
               labelStyle: TextStyle(
@@ -65,21 +61,22 @@ class CustomTextInput extends StatelessWidget {
               ),
               hintText: hint,
               errorText: hasError ? errorMessage : null,
-              suffixIcon: suffixIcon != null
-                  ? InkWell(
-                      onTap: onSuffixTap,
-                      child: Icon(
-                        suffixIcon,
-                        color: hasError ? ColorsTheme.red : ColorsTheme.blue,
-                      ),
-                    )
-                  : null,
-              prefixIcon: prefixIcon != null
-                  ? Icon(
-                      prefixIcon,
-                      color: hasError ? ColorsTheme.red : ColorsTheme.blue,
-                    )
-                  : null,
+
+              prefixIcon: Padding(
+                padding: const EdgeInsets.only(left: 8, right: 4),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: value,
+                    items: options
+                        .map(
+                          (opt) =>
+                              DropdownMenuItem(value: opt, child: Text(opt)),
+                        )
+                        .toList(),
+                    onChanged: (value) {},
+                  ),
+                ),
+              ),
               border: const OutlineInputBorder(),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(

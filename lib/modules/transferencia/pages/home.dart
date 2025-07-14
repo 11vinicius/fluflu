@@ -4,7 +4,7 @@ import 'package:teste/modules/transferencia/controllers/TransferenciaController.
 import 'package:teste/shared/components/CustomAppBar.dart';
 import 'package:teste/shared/components/CustomLoading.dart';
 import 'package:teste/modules/transferencia/components/ListaTransferecias.dart';
-import 'package:teste/layout/ColorsTheme.dart';
+import 'package:teste/shared/layout/ColorsTheme.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});

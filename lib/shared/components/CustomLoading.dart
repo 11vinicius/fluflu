@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teste/layout/ColorsTheme.dart';
+import 'package:teste/shared/layout/ColorsTheme.dart';
 
 class CustomLoading extends StatelessWidget {
   @override

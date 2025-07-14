@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/currency_input_formatter.dart';
 import 'package:flutter_multi_formatter/formatters/money_input_enums.dart';
 import 'package:get/get.dart';
-import 'package:teste/layout/ColorsTheme.dart';
+import 'package:teste/shared/components/CustomInputSelect.dart';
+import 'package:teste/shared/layout/ColorsTheme.dart';
 import 'package:teste/shared/components/CustomAppBar.dart';
 import 'package:teste/shared/components/CustomButton.dart';
 import 'package:teste/shared/components/CustomLoading.dart';
 import 'package:teste/shared/components/CustomTextInput.dart';
 import 'package:teste/modules/transferencia/controllers/TransferenciaController.dart';
+import 'package:teste/shared/components/CustomToast.dart';
 
 class CreatePage extends StatelessWidget {
   CreatePage({super.key});
@@ -30,7 +32,32 @@ class CreatePage extends StatelessWidget {
                     controller: controller.numeroConta,
                     hint: '0000',
                     label: 'Número da conta',
+                    suffixIcon: Icons.help,
                     keyboardType: TextInputType.number,
+                    onSuffixTap: () => CustomToast(
+                      title: 'CPF',
+                      message: 'Digite seu CPF',
+                      bgColor: ColorsTheme.green,
+                    ),
+                    validator: (valor) {
+                      if (valor == null || valor.isEmpty) {
+                        return 'Campo obrigatório';
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextInput(
+                    controller: controller.numeroConta,
+                    hint: '0000 0000 0000 0000',
+                    label: 'Cartão',
+                    suffixIcon: Icons.help,
+                    keyboardType: TextInputType.number,
+                    prefixIcon: Icons.credit_card,
+                    onSuffixTap: () => CustomToast(
+                      title: 'Numero do cartao',
+                      message: 'Digite seu CPF',
+                      bgColor: ColorsTheme.green,
+                    ),
                     validator: (valor) {
                       if (valor == null || valor.isEmpty) {
                         return 'Campo obrigatório';
@@ -60,11 +87,25 @@ class CreatePage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  CustomTextInput(
+                    controller: controller.valorConta,
+                    keyboardType: TextInputType.number,
+                    label: 'Pesquisar',
+                    hint: '0.00',
+                    prefixIcon: Icons.search,
+                  ),
+                  CustomInputSelect(
+                    controller: controller.valorConta,
+                    keyboardType: TextInputType.number,
+                    label: 'Pesquisar',
+                    hint: '0.00',
+                    prefixIcon: Icons.search,
+                    options: ['R\$', 'US\$', '€'],
+                    value: 'R\$',
+                  ),
                   CustomButton(
                     backgroundColor: ColorsTheme.blue,
-                    onPressed: () {
-                      print('ok');
-                    },
+                    onPressed: () => controller.make(),
                     label: 'Criar',
                   ),
                 ],

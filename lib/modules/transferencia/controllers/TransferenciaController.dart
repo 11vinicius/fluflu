@@ -10,7 +10,6 @@ class TransferenciaController extends GetxController {
   RxBool isLoading = false.obs;
   final numeroConta = TextEditingController();
   final valorConta = TextEditingController();
-  final uuid = Uuid();
   final service = TransferenciaService();
   RxList<TransfereciaModel> transferencias = <TransfereciaModel>[].obs;
 
@@ -20,9 +19,8 @@ class TransferenciaController extends GetxController {
     super.onInit();
   }
 
-  Future<void> criar() async {
+  Future<void> make() async {
     if (!formKey.currentState!.validate()) {
-      print('erro');
       return;
     }
 
@@ -32,9 +30,7 @@ class TransferenciaController extends GetxController {
     final uuid = Uuid();
     final id = uuid.v4();
 
-    final res = await service.createTransferencias(
-      TransfereciaModel(id, valor, numero!),
-    );
+    await service.createTransferencias(TransfereciaModel(id, valor, numero!));
 
     numeroConta.text = '';
     valorConta.text = '';
@@ -42,6 +38,7 @@ class TransferenciaController extends GetxController {
   }
 
   Future<void> findAll() async {
+    isLoading.value = true;
     final res = await service.getTransferencias();
 
     final lista = (res.body['results'] as List<dynamic>)
