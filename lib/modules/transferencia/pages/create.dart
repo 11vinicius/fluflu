@@ -94,15 +94,24 @@ class CreatePage extends StatelessWidget {
                     hint: '0.00',
                     prefixIcon: Icons.search,
                   ),
-                  CustomInputSelect(
-                    controller: controller.valorConta,
-                    keyboardType: TextInputType.number,
-                    label: 'Pesquisar',
-                    hint: '0.00',
-                    prefixIcon: Icons.search,
-                    options: ['R\$', 'US\$', '€'],
-                    value: 'R\$',
-                  ),
+                  Obx(() {
+                    final selectedOption = controller.moedas.firstWhere(
+                      (m) => m.value == controller.moeda.value,
+                      orElse: () => controller.moedas[0],
+                    );
+                    return CustomInputSelect(
+                      controller: controller.valorConta,
+                      keyboardType: TextInputType.number,
+                      label: '',
+                      hint: '',
+                      onChanged: (value) {
+                        controller.moeda.value = value;
+                      },
+                      prefixIcon: Icons.search,
+                      options: controller.moedas,
+                      value: controller.moeda.value,
+                    );
+                  }),
                   CustomButton(
                     backgroundColor: ColorsTheme.blue,
                     onPressed: () => controller.make(),

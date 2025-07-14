@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teste/models/TransfereciaModel.dart';
 import 'package:teste/modules/transferencia/services/TransferenciaService.dart';
+import 'package:teste/shared/components/CustomInputSelect.dart';
 import 'package:teste/shared/utils/formatMoneyToDouble.dart';
 import 'package:uuid/uuid.dart';
 
@@ -12,6 +13,21 @@ class TransferenciaController extends GetxController {
   final valorConta = TextEditingController();
   final service = TransferenciaService();
   RxList<TransfereciaModel> transferencias = <TransfereciaModel>[].obs;
+
+  final List<SelectOption> moedas = [
+    SelectOption(value: 'BRL', label: 'R\$'),
+    SelectOption(value: 'USD', label: 'US\$'),
+    SelectOption(value: 'EUR', label: '€'),
+    SelectOption(value: 'GBP', label: '£'),
+    SelectOption(value: 'JPY', label: '¥'),
+    SelectOption(value: 'ARS', label: 'AR\$'),
+    SelectOption(value: 'CAD', label: 'C\$'),
+    SelectOption(value: 'AUD', label: 'A\$'),
+    SelectOption(value: 'CNY', label: '元'),
+    SelectOption(value: 'CHF', label: 'CHF'),
+  ];
+
+  RxString moeda = 'BRL'.obs;
 
   @override
   void onInit() {
