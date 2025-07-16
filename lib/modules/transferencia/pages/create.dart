@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/currency_input_formatter.dart';
 import 'package:flutter_multi_formatter/formatters/money_input_enums.dart';
 import 'package:get/get.dart';
-import 'package:teste/shared/components/CustomInputSelect.dart';
+import 'package:teste/shared/components/CustomDatePicker.dart';
 import 'package:teste/shared/layout/ColorsTheme.dart';
 import 'package:teste/shared/components/CustomAppBar.dart';
 import 'package:teste/shared/components/CustomButton.dart';
-import 'package:teste/shared/components/CustomLoading.dart';
 import 'package:teste/shared/components/CustomTextInput.dart';
 import 'package:teste/modules/transferencia/controllers/TransferenciaController.dart';
 import 'package:teste/shared/components/CustomToast.dart';
@@ -15,6 +14,7 @@ class CreatePage extends StatelessWidget {
   CreatePage({super.key});
 
   final TransferenciaController controller = Get.find();
+  DateTime? _birthDate;
 
   @override
   Widget build(BuildContext context) {
@@ -46,24 +46,14 @@ class CreatePage extends StatelessWidget {
                     return null;
                   },
                 ),
-                // CustomTextInput(
-                //   controller: controller.numeroConta,
-                //   hint: '0000 0000 0000 0000',
-                //   label: 'Cartão',
-                //   suffixIcon: Icons.help,
-                //   keyboardType: TextInputType.number,
-                //   prefixIcon: Icons.credit_card,
-                //   onSuffixTap: () => CustomToast(
-                //     title: 'Numero do cartao',
-                //     message: 'Digite seu CPF',
-                //     bgColor: ColorsTheme.green,
-                //   ),
-                //   validator: (valor) {
-                //     if (valor == null || valor.isEmpty) {
-                //       return 'Campo obrigatório';
-                //     }
-                //     return null;
+                // CustomDatePicker(
+                //   label: 'Data de nascimemnto',
+                //   enable: controller.isLoading.value,
+                //   selectedDate: controller.dataNascimento.value,
+                //   onDateSelected: (newDate) {
+                //     controller.dataNascimento.value = newDate;
                 //   },
+                //   hint: '06/07/2000',
                 // ),
                 CustomTextInput(
                   controller: controller.valorConta,
@@ -88,7 +78,23 @@ class CreatePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                // CustomTextInput(
+                CustomButton(
+                  backgroundColor: ColorsTheme.blue,
+                  onPressed: () => controller.make(),
+                  isLoading: !controller.isLoading.value,
+                  label: 'Criar',
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
+  }
+}
+
+
+    // CustomTextInput(
                 //   controller: controller.valorConta,
                 //   keyboardType: TextInputType.number,
                 //   label: 'Pesquisar',
@@ -113,17 +119,23 @@ class CreatePage extends StatelessWidget {
                 //     value: controller.moeda.value,
                 //   );
                 // }),
-                CustomButton(
-                  backgroundColor: ColorsTheme.blue,
-                  onPressed: () => controller.make(),
-                  isLoading: !controller.isLoading.value,
-                  label: 'Criar',
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    });
-  }
-}
+
+                 // CustomTextInput(
+                //   controller: controller.numeroConta,
+                //   hint: '0000 0000 0000 0000',
+                //   label: 'Cartão',
+                //   suffixIcon: Icons.help,
+                //   keyboardType: TextInputType.number,
+                //   prefixIcon: Icons.credit_card,
+                //   onSuffixTap: () => CustomToast(
+                //     title: 'Numero do cartao',
+                //     message: 'Digite seu CPF',
+                //     bgColor: ColorsTheme.green,
+                //   ),
+                //   validator: (valor) {
+                //     if (valor == null || valor.isEmpty) {
+                //       return 'Campo obrigatório';
+                //     }
+                //     return null;
+                //   },
+                // ),

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teste/models/TransfereciaModel.dart';
 import 'package:teste/modules/transferencia/services/TransferenciaService.dart';
-import 'package:teste/shared/components/CustomInputSelect.dart';
+import 'package:teste/shared/components/CustomToast.dart';
+import 'package:teste/shared/layout/ColorsTheme.dart';
 import 'package:teste/shared/utils/formatMoneyToDouble.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,19 +14,7 @@ class TransferenciaController extends GetxController {
   final valorConta = TextEditingController();
   final service = TransferenciaService();
   RxList<TransfereciaModel> transferencias = <TransfereciaModel>[].obs;
-
-  final List<SelectOption> moedas = [
-    SelectOption(value: 'BRL', label: 'R\$'),
-    SelectOption(value: 'USD', label: 'US\$'),
-    SelectOption(value: 'EUR', label: '€'),
-    SelectOption(value: 'GBP', label: '£'),
-    SelectOption(value: 'JPY', label: '¥'),
-    SelectOption(value: 'ARS', label: 'AR\$'),
-    SelectOption(value: 'CAD', label: 'C\$'),
-    SelectOption(value: 'AUD', label: 'A\$'),
-    SelectOption(value: 'CNY', label: '元'),
-    SelectOption(value: 'CHF', label: 'CHF'),
-  ];
+  Rx<DateTime> dataNascimento = DateTime.now().obs;
 
   RxString moeda = 'BRL'.obs;
 
@@ -40,15 +29,22 @@ class TransferenciaController extends GetxController {
       return;
     }
 
-    isLoading.value = true;
-    final numero = int.tryParse(numeroConta.text);
-    final valor = parseMoneyBr(valorConta.text);
-    final uuid = Uuid();
-    final id = uuid.v4();
-
-    await service.createTransferencias(TransfereciaModel(id, valor, numero!));
-
-    Get.offAllNamed("/");
+    try {
+      isLoading.value = true;
+      final numero = int.tryParse(numeroConta.text);
+      final valor = parseMoneyBr(valorConta.text);
+      final uuid = Uuid();
+      final id = uuid.v4();
+      await service.createTransferencias(TransfereciaModel(id, valor, numero!));
+      Get.offAllNamed("/");
+    } catch (e) {
+      isLoading.value = false;
+      CustomToast(
+        title: 'Error',
+        message: 'erro ao salvar transferencia',
+        bgColor: ColorsTheme.red,
+      );
+    }
   }
 
   Future<void> findAll() async {

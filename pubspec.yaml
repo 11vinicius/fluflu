@@ -37,6 +37,9 @@ dependencies:
   get: ^4.7.2
   flutter_multi_formatter: ^2.12.1 # ou a versão mais recente
   uuid: ^4.0.0
+  flutter_localizations:
+    sdk: flutter
+
 
 
 

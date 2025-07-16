@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:teste/modules/transferencia/bindings/TransferenciaBinding.dart';
 import 'package:teste/modules/transferencia/pages/create.dart';
 import 'package:teste/modules/transferencia/pages/home.dart';
+import 'package:teste/shared/initialBinding/initalBinding.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,20 +17,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      locale: const Locale('pt', 'BR'),
+      supportedLocales: const [Locale('en', 'US'), Locale('pt', 'BR')],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      fallbackLocale: const Locale('en', 'US'),
       initialRoute: '/',
+      // initialBinding: InitialBinding(),
       getPages: [
         GetPage(
           name: '/',
           page: () => HomePage(),
-          binding: TransferenciaBinding(),
           transition: Transition.fadeIn,
+          binding: TransferenciaBinding(),
           transitionDuration: Duration(milliseconds: 400),
         ),
         GetPage(
           name: '/create',
           page: () => CreatePage(),
-          binding: TransferenciaBinding(),
           transition: Transition.fadeIn,
+          binding: TransferenciaBinding(),
           transitionDuration: Duration(milliseconds: 400),
         ),
       ],
