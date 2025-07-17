@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:teste/modules/transferencia/controllers/TransferenciaController.dart';
 import 'package:teste/shared/components/CustomLoading.dart';
 import 'package:teste/modules/transferencia/components/Transferencia.dart';
-import 'package:teste/models/TransfereciaModel.dart';
+import 'package:teste/modules/transferencia/models/TransfereciaModel.dart';
 
 class Listatransferecias extends StatelessWidget {
   Listatransferecias({super.key});

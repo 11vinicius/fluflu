@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/currency_input_formatter.dart';
 import 'package:flutter_multi_formatter/formatters/money_input_enums.dart';
 import 'package:get/get.dart';
-import 'package:teste/shared/components/CustomDatePicker.dart';
 import 'package:teste/shared/layout/ColorsTheme.dart';
 import 'package:teste/shared/components/CustomAppBar.dart';
 import 'package:teste/shared/components/CustomButton.dart';
@@ -14,13 +13,12 @@ class CreatePage extends StatelessWidget {
   CreatePage({super.key});
 
   final TransferenciaController controller = Get.find();
-  DateTime? _birthDate;
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(title: 'Trânsferencia'),
         body: Form(
           key: controller.formKey,
           child: Padding(

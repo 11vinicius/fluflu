@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teste/modules/transferencia/bindings/TransferenciaBinding.dart';
-import 'package:teste/modules/transferencia/pages/create.dart';
-import 'package:teste/modules/transferencia/pages/home.dart';
-import 'package:teste/shared/initialBinding/initalBinding.dart';
+import 'package:teste/modules/transferencia/TransferenciaRoutes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:teste/modules/user/UserRoutes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,24 +23,9 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       fallbackLocale: const Locale('en', 'US'),
-      initialRoute: '/',
+      initialRoute: '/transferencia/home',
       // initialBinding: InitialBinding(),
-      getPages: [
-        GetPage(
-          name: '/',
-          page: () => HomePage(),
-          transition: Transition.fadeIn,
-          binding: TransferenciaBinding(),
-          transitionDuration: Duration(milliseconds: 400),
-        ),
-        GetPage(
-          name: '/create',
-          page: () => CreatePage(),
-          transition: Transition.fadeIn,
-          binding: TransferenciaBinding(),
-          transitionDuration: Duration(milliseconds: 400),
-        ),
-      ],
+      getPages: [...TransferenciaRoutes, ...UserRoutes],
     );
   }
 }

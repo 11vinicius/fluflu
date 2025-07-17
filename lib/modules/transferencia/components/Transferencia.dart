@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teste/models/TransfereciaModel.dart';
+import 'package:teste/modules/transferencia/models/TransfereciaModel.dart';
 
 class Transferencia extends StatelessWidget {
   final TransfereciaModel transferencia;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teste/models/TransfereciaModel.dart';
+import 'package:teste/modules/transferencia/models/TransfereciaModel.dart';
 import 'package:teste/modules/transferencia/services/TransferenciaService.dart';
 import 'package:teste/shared/components/CustomToast.dart';
 import 'package:teste/shared/layout/ColorsTheme.dart';
@@ -36,7 +36,7 @@ class TransferenciaController extends GetxController {
       final uuid = Uuid();
       final id = uuid.v4();
       await service.createTransferencias(TransfereciaModel(id, valor, numero!));
-      Get.offAllNamed("/");
+      Get.offAllNamed("/transferencia/home");
     } catch (e) {
       isLoading.value = false;
       CustomToast(
@@ -48,14 +48,26 @@ class TransferenciaController extends GetxController {
   }
 
   Future<void> findAll() async {
-    isLoading.value = true;
-    final res = await service.getTransferencias();
+    try {
+      isLoading.value = true;
 
-    final lista = (res.body['results'] as List<dynamic>)
-        .map((e) => TransfereciaModel.fromMap(e as Map<String, dynamic>))
-        .toList();
+      final res = await service.getTransferencias();
 
-    transferencias.value = lista;
-    isLoading.value = false;
+      if (res.statusCode == 200 && res.body != null) {
+        final lista = (res.body['results'] as List<dynamic>)
+            .map((e) => TransfereciaModel.fromMap(e as Map<String, dynamic>))
+            .toList();
+
+        transferencias.value = lista;
+      } else {
+        CustomToast(
+          title: 'Error',
+          message: 'Erro ao buscar transferências',
+          bgColor: ColorsTheme.red,
+        );
+      }
+    } finally {
+      isLoading.value = false;
+    }
   }
 }
