@@ -15,9 +15,11 @@ class CustomTextInput extends StatelessWidget {
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final bool enable;
+  final obscureText;
 
   const CustomTextInput({
     super.key,
+    this.obscureText = false,
     this.validator,
     required this.enable,
     this.onSuffixTap,
@@ -52,6 +54,7 @@ class CustomTextInput extends StatelessWidget {
         return Padding(
           padding: padding,
           child: TextFormField(
+            obscureText: obscureText,
             enabled: enable,
             controller: controller,
             keyboardType: keyboardType,

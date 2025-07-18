@@ -80,7 +80,7 @@ class CreatePage extends StatelessWidget {
                   backgroundColor: ColorsTheme.blue,
                   onPressed: () => controller.make(),
                   isLoading: !controller.isLoading.value,
-                  label: 'Criar',
+                  label: 'Salvar',
                 ),
               ],
             ),
